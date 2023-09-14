@@ -1,0 +1,40 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>Auth0-Playground</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu/>
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>
+                        <a asp-controller="Account" asp-action="Profile">Hello @User.Identity.Name!</a>
+                    </li>
+                    <li>
+                        <a id="qsLogoutBtn" asp-controller="Account" asp-action="Logout">Logout</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a id="qsLoginBtn" asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
