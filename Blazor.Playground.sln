@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth0-Playground", "Auth0-Playground\Auth0-Playground.csproj", "{6C05128A-8ECD-4D60-A249-77BBBF097D2E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth0.Demo", "Auth0.Demo\Auth0.Demo.csproj", "{6C05128A-8ECD-4D60-A249-77BBBF097D2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

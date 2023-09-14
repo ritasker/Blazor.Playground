@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Auth0_Playground.Pages
+namespace Auth0.Demo.Pages
 {
     public class LogoutModel : PageModel
     {

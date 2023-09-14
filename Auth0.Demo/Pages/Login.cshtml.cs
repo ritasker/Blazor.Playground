@@ -2,7 +2,7 @@ using Auth0.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Auth0_Playground.Pages
+namespace Auth0.Demo.Pages
 {
     public class LoginModel : PageModel
     {
