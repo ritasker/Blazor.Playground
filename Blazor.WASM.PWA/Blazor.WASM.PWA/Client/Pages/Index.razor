@@ -1,0 +1,71 @@
+﻿@page "/"
+@attribute [Authorize]
+ 
+@inject HttpClient httpClient
+@inject LocalForecastStore localForecastStore
+
+<MudText Typo="Typo.h6">Welcome @username</MudText>
+
+@if (forecasts is null)
+{
+    <MudText Typo="Typo.h6">Loading...</MudText>
+}
+else
+{
+    <MudTable Items="@forecasts" Hover="true" Striped="true" Filter="new Func<WeatherForecast, bool>(FilterFunc1)">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">My Orders</MudText>
+            <MudSpacer/>
+            <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Date</MudTh>
+            <MudTh>Temp. (C)</MudTh>
+            <MudTh>Temp. (F)</MudTh>
+            <MudTh>Summary</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nr">@context.Date.ToShortDateString()</MudTd>
+            <MudTd DataLabel="Sign">@context.TemperatureC</MudTd>
+            <MudTd DataLabel="Sign">@context.TemperatureF</MudTd>
+            <MudTd DataLabel="Sign">@context.Summary</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager/>
+        </PagerContent>
+    </MudTable>
+}
+
+@code {
+    private readonly string username = "User";
+    private string searchString = "";
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // var fcasts = await httpClient.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        // foreach (var forecast in fcasts)
+        // {
+        //     await localForecastStore.SetAsync("forecasts", forecast);
+        // }
+        // forecasts = await localForecastStore.GetAllAsync<WeatherForecast[]>("forecasts");
+        try
+        {
+            forecasts = await httpClient.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private bool FilterFunc1(WeatherForecast element) => FilterFunc(element, searchString);
+
+    private bool FilterFunc(WeatherForecast element, string searchString)
+    {
+        return
+            string.IsNullOrWhiteSpace(searchString) ||
+            $"{element.Date} {element.TemperatureC} {element.TemperatureF} {element.Summary}".Contains(searchString, StringComparison.OrdinalIgnoreCase);
+    }
+
+}
